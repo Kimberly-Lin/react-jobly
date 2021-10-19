@@ -5,6 +5,7 @@ import CompanyList from "./CompanyList";
 import Homepage from "./Homepage";
 import JobList from "./JobList";
 
+//Make route when nothing found, go home
 function Routes() {
   return (
     <Switch>

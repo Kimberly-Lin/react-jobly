@@ -2,6 +2,7 @@ nav {
   background-color: rgba(144, 211, 253, 0.975);
   text-align: center;
   font-weight: bold;
+  font-size: 24px;
 }
 
 nav a {

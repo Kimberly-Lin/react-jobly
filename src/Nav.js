@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Nav.css";
 
+//Docstrings!!!!
 function Nav() {
   return (
     <nav className="Nav">
