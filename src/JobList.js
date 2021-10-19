@@ -1,7 +1,7 @@
 import React from "react";
 
-function Homepage() {
+function JobList() {
   return (null);
 }
 
-export default Homepage;
+export default JobList;
