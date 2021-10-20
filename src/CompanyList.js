@@ -9,14 +9,17 @@ import Loading from "./Loading";
  * State:
  * searchTerm: {name: company}
  * companies: [{company}, {company}, {company}]
+ * isLoading: boolean
  *
  * Props: None
+ *
+ * Routes -> CompanyList -> {SearchForm, CompanyCard}
  *
  */
 
 function CompanyList() {
   const [companies, setCompanies] = useState([]);
-  const [searchTerm, setSearchTerm] = useState({});
+  const [searchTerm, setSearchTerm] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   console.log("CompanyList", { companies, searchTerm });
 
@@ -38,21 +41,25 @@ function CompanyList() {
   );
 
   if (isLoading) {
-    return <Loading />
+    return <Loading />;
   }
 
   return (
     <div>
       <SearchForm handleSearch={handleSearch} />
-      {companies.length > 0
-        ? companies.map(({ handle, name, description, logoUrl }) => (
+      {companies.length === 0 && searchTerm ? (
+        <p>Sorry, no matching companies were found. 🥲 </p>
+      ) : (
+        companies.map(({ handle, name, description, logoUrl }) => (
           <CompanyCard
             key={handle}
+            handle={handle}
             name={name}
             description={description}
             logoUrl={logoUrl}
-          />))
-        : <p>Sorry, no matching companies were found. 🥲 </p>}
+          />
+        ))
+      )}
     </div>
   );
 }

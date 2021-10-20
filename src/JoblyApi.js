@@ -57,6 +57,7 @@ class JoblyApi {
     return res.companies;
   }
 
+  //Document more clearly of what is BEING DOCUMENTED!!!
   /** Get list of jobs
    *
    * returns [{job}, {job}, {job}]
