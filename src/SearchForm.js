@@ -1,7 +1,7 @@
 import React from "react";
 
-function SearchForm() {
-  return (null);
+function SearchForm({ handleSearch }) {
+  return null;
 }
 
 export default SearchForm;

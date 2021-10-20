@@ -53,7 +53,7 @@ class JoblyApi {
 
   //TODO:refactor this
   static async getCompanies(name) {
-    const res = await this.request("companies", { name });
+    const res = await this.request("companies", name);
     return res.companies;
   }
 
@@ -63,7 +63,7 @@ class JoblyApi {
    */
 
   static async getJobs(title) {
-    let res = await this.request("jobs", { title });
+    let res = await this.request("jobs", title);
     return res.jobs;
   }
 

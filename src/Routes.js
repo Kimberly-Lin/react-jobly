@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import CompanyDetail from "./CompanyDetail";
 import CompanyList from "./CompanyList";
 import Homepage from "./Homepage";
@@ -21,6 +21,7 @@ function Routes() {
       <Route exact path="/jobs">
         <JobList />
       </Route>
+      <Redirect to="/" />
     </Switch>
   );
 }
