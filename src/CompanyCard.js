@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import "./CompanyCard.css"
 
 /** Renders CompanyCard
  *
@@ -11,16 +12,16 @@ import { Link } from "react-router-dom";
 
 function CompanyCard({ handle, name, description, logoUrl }) {
   return (
-    <Link
-      to={`companies/${handle}`}
-      style={{ textDecoration: "none", color: "black" }}
-    >
-      <div>
+    <div className="CompanyCard">
+      <Link
+        to={`companies/${handle}`}
+        style={{ textDecoration: "none", color: "black" }}
+      >
         <h2>{name}</h2>
         <p>{description}</p>
         {logoUrl && <img src={logoUrl} alt="logo" />}
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 }
 

@@ -12,10 +12,12 @@ import { BrowserRouter } from 'react-router-dom';
  */
 function App() {
   return (
-    <BrowserRouter>
-      <Nav />
-      <Routes />
-    </BrowserRouter>
+    <div className="App">
+      <BrowserRouter>
+        <Nav />
+        <Routes />
+      </BrowserRouter>
+    </div >
   );
 }
 

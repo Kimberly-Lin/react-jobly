@@ -1,4 +1,5 @@
 import React from "react";
+import "./Homepage.css"
 
 /** Renders Homepage
  *
@@ -9,7 +10,11 @@ import React from "react";
  */
 
 function Homepage() {
-  return <h1>Welcome To Jobly!</h1>;
+  return (
+    <div className="Homepage">
+      <h1>Welcome To Jobly!</h1>
+    </div>
+  )
 }
 
 export default Homepage;
