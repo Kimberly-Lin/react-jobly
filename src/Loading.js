@@ -8,7 +8,7 @@ import React from "react";
  * JobList, CompanyList, CompanyDetail --> Loading
  */
 function Loading() {
-  console.log("Loading page rendered")
+  console.log("Loading page rendered");
   return (
     <div>
       <h1>Loading...</h1>

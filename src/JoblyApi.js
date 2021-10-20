@@ -40,8 +40,12 @@ class JoblyApi {
   /** Get details on a company by handle. */
 
   static async getCompany(handle) {
-    let res = await this.request(`companies/${handle}`);
-    return res.company;
+    try {
+      let res = await this.request(`companies/${handle}`);
+      return res.company;
+    } catch (err) {
+      return err;
+    }
   }
 
   // obviously, you'll add a lot here ...
@@ -51,9 +55,10 @@ class JoblyApi {
    * returns [{company}, {company}, {company}]
    */
 
-  //TODO:refactor this
-  static async getCompanies(name) {
-    const res = await this.request("companies", name);
+  static async getCompanies(searchTerm) {
+    const res = (searchTerm)
+      ? await this.request("companies", { "name": searchTerm })
+      : await this.request("companies");
     return res.companies;
   }
 
@@ -63,8 +68,8 @@ class JoblyApi {
    * returns [{job}, {job}, {job}]
    */
 
-  static async getJobs(title) {
-    let res = await this.request("jobs", title);
+  static async getJobs(searchTerm) {
+    let res = await this.request("jobs", { "title": searchTerm });
     return res.jobs;
   }
 

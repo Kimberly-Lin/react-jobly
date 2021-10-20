@@ -3,6 +3,7 @@ import JoblyApi from "./JoblyApi";
 import JobCardList from "./JobCardList";
 import Loading from "./Loading";
 import { useParams } from "react-router-dom";
+import Errors from "./Errors";
 
 /** Function gives detail of a Company
  *
@@ -15,8 +16,8 @@ import { useParams } from "react-router-dom";
 
 function CompanyDetail() {
   const [company, setCompany] = useState(null);
-  const [errors, setError] = useState(null);
-  console.log("Company Details", { company });
+  const [errors, setErrors] = useState(null);
+  console.log("Company Details", { company, errors });
 
   const { handle } = useParams();
 
@@ -27,7 +28,7 @@ function CompanyDetail() {
           const response = await JoblyApi.getCompany(handle);
           setCompany(response);
         } catch (err) {
-          setError(err);
+          setErrors(err);
         }
       }
       fetchCompanyHandle();
@@ -37,7 +38,7 @@ function CompanyDetail() {
 
   //   Effect will want to know about when handle changes
 
-  if (errors) return <h2>{errors[0]}</h2>;
+  if (errors) return <Errors errors={errors} />;
 
   if (!company) return <Loading />;
   console.log(company.jobs, "Company Jobs from API");

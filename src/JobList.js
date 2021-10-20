@@ -3,6 +3,7 @@ import JoblyApi from "./JoblyApi";
 import SearchForm from "./SearchForm";
 import JobCardList from "./JobCardList";
 import Loading from "./Loading";
+import Errors from "./Errors";
 
 /** Renders JobList
  *
@@ -13,7 +14,7 @@ import Loading from "./Loading";
  *
  * Props: none
  *
- * Routes -> JobList -> {SearchTerm, JobCardList}
+ * Routes -> JobList -> {SearchTerm, JobCardList, Errors}
  */
 
 function JobList() {
@@ -22,40 +23,39 @@ function JobList() {
   const [isLoading, setIsLoading] = useState(true);
   console.log("JobCardList", { jobs, searchTerm });
 
-  function handleSearch(search) {
-    setSearchTerm({ title: search });
+  function handleSearch(searchTerm) {
+    setSearchTerm(searchTerm);
     setIsLoading(true);
   }
-
-  // try catch in async fetchJobs incase it goes down
-
-  // Have the search term BE a string, make this more understandable
-  // Move the knowledge of the Object INNN the API, less to worry about.
 
   useEffect(
     function getJobs() {
       async function fetchJobs() {
-        const response = await JoblyApi.getJobs(searchTerm);
-        setJobs(response);
+        try {
+          const response = await JoblyApi.getJobs(searchTerm);
+          setJobs(response);
+        } catch (err) {
+          return <Errors errors={err} />
+        }
       }
       fetchJobs();
       setIsLoading(false);
+      setSearchTerm(null);
     },
     [searchTerm]
   );
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
   return (
     <div>
       <SearchForm handleSearch={handleSearch} />
-      {jobs.length === 0 && searchTerm ? (
-        <p>Sorry, no matching jobs were found. 🥲 </p>
-      ) : (
-        <JobCardList jobs={jobs} />
-      )}
+      {isLoading
+        ? <Loading />
+        : jobs.length === 0 && searchTerm ? (
+          <p>Sorry, no matching jobs were found. 🥲 </p>
+        ) : (
+          <JobCardList jobs={jobs} />
+        )
+      }
     </div>
   );
 }

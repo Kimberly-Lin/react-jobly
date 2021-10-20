@@ -8,12 +8,13 @@ import React from "react";
  * JobCardList -> JobCard
  */
 function JobCard({ title, company, salary, equity }) {
+  // console.log("JobCard", { title, company, salary, equity });
   return (
     <div>
       <h2><b>{title}</b></h2>
       <h3>{company}</h3>
-      {salary && <div> salary: {salary.toLocaleString()} </div>}
-      {equity && <div> equity: {equity} </div>}
+      {salary && <div> salary: ${salary.toLocaleString()} </div>}
+      {equity && <div> equity: {equity * 100} </div>}
     </div>
   );
 }

@@ -10,7 +10,7 @@ import JobCard from "./JobCard";
  */
 
 function JobCardList({ jobs }) {
-  console.log(jobs, "JobCardList Component List");
+  console.log("JobCardList", { jobs });
   return (
     <div>
       {jobs.map((job) => (

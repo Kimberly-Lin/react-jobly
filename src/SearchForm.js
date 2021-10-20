@@ -8,8 +8,11 @@ import React, { useState } from "react";
  * CompanyList, JobList --> SearchForm
  * 
  */
+
+//TODO: make it so that the search term stays as input once we render
 function SearchForm({ handleSearch }) {
-  const [formData, setFormData] = useState("")
+  const [formData, setFormData] = useState("");
+  console.log("SearchForm", { formData });
 
   function handleChange(evt) {
     setFormData(evt.target.value);
@@ -17,7 +20,7 @@ function SearchForm({ handleSearch }) {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    handleSearch(formData)
+    handleSearch(formData);
   }
 
   return (
