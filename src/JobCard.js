@@ -1,4 +1,5 @@
 import React from "react";
+import "./JobCard.css"
 
 /** Renders job cards
  * 
@@ -10,7 +11,7 @@ import React from "react";
 function JobCard({ title, company, salary, equity }) {
   // console.log("JobCard", { title, company, salary, equity });
   return (
-    <div>
+    <div className="JobCard">
       <h2><b>{title}</b></h2>
       <h3>{company}</h3>
       {salary && <div> salary: ${salary.toLocaleString()} </div>}
