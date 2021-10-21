@@ -7,7 +7,7 @@ nav {
 
 nav a {
   padding: 0.5em 0;
-  width: 12em;
+  width: 5em;
   display: inline-block;
   color: seashell;
   text-decoration: none;
@@ -24,6 +24,16 @@ nav a:hover {
 }
 
 .Nav-Home{
-  display:inline-block;
-  margin-right:auto;
+  display:flex;
+  margin-left: 30px;
+  font-size: large;
+  flex-grow: 1;
+}
+.Nav-Signup, .Nav-Login, .Nav-Profile, .Nav-Companies, .Nav-Jobs{
+  display:flex;
+  font-size: large;
+}
+
+.NavContainer{ 
+  display:flex;
 }

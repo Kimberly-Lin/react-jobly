@@ -30,6 +30,7 @@ function App() {
 
   useEffect(
     function getCurrUser() {
+      //TODO: settoken in localstorage
       async function fetchCurrUser() {
         if (token) {
           JoblyApi.token = token;
@@ -43,6 +44,7 @@ function App() {
       fetchCurrUser();
     },
     [token]
+    //QUESTION: How to use effect to change state if we don't have token as a state?
   );
 
   async function signUpUser(formData) {
@@ -50,6 +52,7 @@ function App() {
       let token = await JoblyApi.signUp(formData);
       console.log("token from signUpUser has passed", { token });
       setToken(token);
+      //TODO:add token to localstorage
     } catch (err) {
       return <Errors errors={err} />;
     }
@@ -60,6 +63,7 @@ function App() {
       let token = await JoblyApi.login(formData);
       console.log("token from loginUser has passed", { token });
       setToken(token);
+      //TODO:add token to localstorage
     } catch (err) {
       console.log("Login caught error", { err });
       return <Errors errors={err} />;
@@ -70,6 +74,7 @@ function App() {
     console.log("The logout was clicked");
     setCurrUser(null);
     setToken(null);
+    //TODO: remove token from localstorage
   }
 
   return (

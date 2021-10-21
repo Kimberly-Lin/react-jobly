@@ -15,11 +15,11 @@ function Nav({ logOut }) {
   const { currUser } = useContext(UserContext);
   return (
     <nav className="Nav">
-      <NavLink className="Nav-Home" exact to="/">
-        Home
-      </NavLink>
       {currUser !== null ? (
-        <div>
+        <div className="NavContainer">
+          <NavLink className="Nav-Home" exact to="/">
+            Home
+          </NavLink>
           <NavLink className="Nav-Companies" exact to="/companies">
             Companies
           </NavLink>
@@ -34,7 +34,10 @@ function Nav({ logOut }) {
           </NavLink>
         </div>
       ) : (
-        <div>
+        <div className="NavContainer">
+          <NavLink className="Nav-Home" exact to="/">
+            Home
+          </NavLink>
           <NavLink className="Nav-Signup" exact to="/signup">
             Signup
           </NavLink>
