@@ -18,6 +18,8 @@ function App() {
   const [currUsername, setCurrUsername] = useState(null);
   const [token, setToken] = useState(null);
 
+  console.log("App", { currUsername, token })
+
   async function signUpUser(formData) {
     try {
       let token = await JoblyApi.signUp(formData);
@@ -34,6 +36,7 @@ function App() {
       console.log("token from loginUser has passed", { token });
       setToken(token);
     } catch (err) {
+      console.log("Login caught error", { err })
       return <Errors errors={err} />;
     }
   }

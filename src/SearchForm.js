@@ -9,7 +9,6 @@ import React, { useState } from "react";
  * 
  */
 
-//TODO: make it so that the search term stays as input once we render
 function SearchForm({ handleSearch }) {
   const [formData, setFormData] = useState("");
   console.log("SearchForm", { formData });

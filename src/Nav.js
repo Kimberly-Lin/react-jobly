@@ -32,10 +32,10 @@ function Nav({ logOut }) {
         </div>
       ) : (
         <div>
-          <NavLink className="Nav-Jobs" exact to="/jobs">
+          <NavLink className="Nav-Jobs" exact to="/signup">
             Signup
           </NavLink>
-          <NavLink className="Nav-Jobs" exact to="/jobs">
+          <NavLink className="Nav-Jobs" exact to="/login">
             Login
           </NavLink>
         </div>
