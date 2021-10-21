@@ -56,8 +56,8 @@ class JoblyApi {
    */
 
   static async getCompanies(searchTerm) {
-    const res = (searchTerm)
-      ? await this.request("companies", { "name": searchTerm })
+    const res = searchTerm
+      ? await this.request("companies", { name: searchTerm })
       : await this.request("companies");
     return res.companies;
   }
@@ -69,7 +69,7 @@ class JoblyApi {
    */
 
   static async getJobs(searchTerm) {
-    let res = await this.request("jobs", { "title": searchTerm });
+    let res = await this.request("jobs", { title: searchTerm });
     return res.jobs;
   }
 
@@ -77,6 +77,29 @@ class JoblyApi {
   static async getJobById(id) {
     const res = await this.request(`jobs/${id}`);
     return res.job;
+  }
+
+  static async signUp({ username, password, firstName, lastName, email }) {
+    const res = await this.request(
+      "auth/register",
+      { username, password, firstName, lastName, email },
+      "post"
+    );
+    return res.token;
+  }
+
+  static async login({ username, password }) {
+    const res = await this.request(
+      "auth/token",
+      { username, password },
+      "post"
+    );
+    return res.token;
+  }
+
+  static async editUser({ username, ...data }) {
+    const res = await this.request(`user/${username}`, data, "patch");
+    return res;
   }
 }
 
