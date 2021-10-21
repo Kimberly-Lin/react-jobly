@@ -14,13 +14,13 @@ import UserContext from "./UserContext";
 //TODO: REMEMBER to add EditProfileForm
 
 function Nav({ logOut }) {
-  const { currUsername } = useContext(UserContext);
+  const { currUser } = useContext(UserContext);
   return (
     <nav className="Nav">
       <NavLink className="Nav-Home" exact to="/">
         Home
       </NavLink>
-      {currUsername !== null ? (
+      {currUser !== null ? (
         <div>
           <NavLink className="Nav-Companies" exact to="/companies">
             Companies
