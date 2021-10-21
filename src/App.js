@@ -18,6 +18,7 @@ import jwt from "jsonwebtoken";
 function App() {
   const [currUser, setCurrUser] = useState(null);
   const [token, setToken] = useState(null);
+  //can set default token to localstorage
 
   console.log("App", { currUser, token });
 
@@ -47,6 +48,7 @@ function App() {
     //QUESTION: How to use effect to change state if we don't have token as a state?
   );
 
+  //TODO: can remove try catch and catch the error in the form
   async function signUpUser(formData) {
     try {
       let token = await JoblyApi.signUp(formData);
@@ -82,7 +84,7 @@ function App() {
       <BrowserRouter>
         <UserContext.Provider value={{ currUser }}>
           <Nav logOut={logOut} />
-          <Routes signUpUser={signUpUser} loginUser={loginUser} />
+          <Routes signUpUser={signUpUser} loginUser={loginUser} currUser={currUser} />
         </UserContext.Provider>
       </BrowserRouter>
     </div>
