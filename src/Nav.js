@@ -11,8 +11,6 @@ import UserContext from "./UserContext";
  * App -> Nav
  */
 
-//TODO: REMEMBER to add EditProfileForm
-
 function Nav({ logOut }) {
   const { currUser } = useContext(UserContext);
   return (
@@ -28,14 +26,19 @@ function Nav({ logOut }) {
           <NavLink className="Nav-Jobs" exact to="/jobs">
             Jobs
           </NavLink>
-          <button onClick={logOut}>LogOut</button>
+          <NavLink className="Nav-Profile" exact to="/profile">
+            Profile
+          </NavLink>
+          <NavLink className="Nav-Logout" exact to="/" onClick={logOut}>
+            Log out {currUser.username}
+          </NavLink>
         </div>
       ) : (
         <div>
-          <NavLink className="Nav-Jobs" exact to="/signup">
+          <NavLink className="Nav-Signup" exact to="/signup">
             Signup
           </NavLink>
-          <NavLink className="Nav-Jobs" exact to="/login">
+          <NavLink className="Nav-Login" exact to="/login">
             Login
           </NavLink>
         </div>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 /** Renders search bar
  * 
- * props: handleSearch
+ * props: handleSearch fn
  * state: formData
  * 
  * CompanyList, JobList --> SearchForm

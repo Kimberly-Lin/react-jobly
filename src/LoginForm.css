@@ -1,0 +1,44 @@
+.LoginForm{
+  background-color: snow;
+  display: flex;
+  justify-content: center;
+  margin-top: 10rem;
+  width: 40%;
+  /* margin: auto; */
+  height: 15rem;
+  margin-right: auto;
+  margin-left: auto;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.LoginForm div {
+  margin: 5px;
+  position: relative;
+}
+
+.LoginForm input{
+  border-radius: 3.5px;
+  outline: none;
+  border-width: 1px;
+  margin-left: 5%;
+}
+
+.LoginForm label{
+  position: absolute;
+  left: -50%;
+}
+
+.LoginForm button{
+  border-radius: 5px;
+  background-color: rgba(144, 211, 253, 0.975);
+  color:seashell;
+  padding: 15px 15px;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.LoginForm button:hover{
+  transform: translateY(-4px);
+  background-color: rgba(70, 177, 243, 0.892);
+}

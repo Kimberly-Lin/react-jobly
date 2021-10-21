@@ -4,8 +4,9 @@ import CompanyDetail from "./CompanyDetail";
 import CompanyList from "./CompanyList";
 import Homepage from "./Homepage";
 import JobList from "./JobList";
-import SignUpPage from "./SignUpPage";
-import LoginPage from "./LoginPage";
+import SignUpForm from "./SignUpForm";
+import LoginForm from "./LoginForm";
+import ProfileForm from "./ProfileForm"
 
 //Make route when nothing found, go home
 //TODO: REMEMBER to add EditProfileForm
@@ -26,10 +27,13 @@ function Routes({ signUpUser, loginUser }) {
         <JobList />
       </Route>
       <Route exact path="/signup">
-        <SignUpPage signUpUser={signUpUser} />
+        <SignUpForm signUpUser={signUpUser} />
       </Route>
       <Route exact path="/login">
-        <LoginPage loginUser={loginUser} />
+        <LoginForm loginUser={loginUser} />
+      </Route>
+      <Route exact path="/profile">
+        <ProfileForm />
       </Route>
       <Redirect to="/" />
     </Switch>
