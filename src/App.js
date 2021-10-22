@@ -6,12 +6,11 @@ import { BrowserRouter } from "react-router-dom";
 import UserContext from "./UserContext";
 import JoblyApi from "./JoblyApi";
 import jwt from "jsonwebtoken";
-import Errors from "./Errors";
 
 /** Renders jobly app
  *
  * prop: none
- * state: none
+ * state: currUser, token, isLoading
  *
  * Index -> App -> {Routes, Nav}
  */
@@ -19,6 +18,7 @@ import Errors from "./Errors";
 function App() {
   const [currUser, setCurrUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("token"));
+  const [isLoading, setIsLoading] = useState(false);
 
   console.log("App", { currUser, token });
 
@@ -32,6 +32,7 @@ function App() {
           const user = await JoblyApi.getUser(username);
           console.log({ user }, "User info from fetchCurrUser");
           setCurrUser(user);
+          setIsLoading(true);
         }
       }
       fetchCurrUser();
@@ -64,21 +65,16 @@ function App() {
     console.log("edit user ran", { formData });
     const { username, password, firstName, lastName, email } = formData;
     // await JoblyApi.login({ username, password });
-    try {
-      let token = await JoblyApi.login({ username, password });
-      if (token) {
-        const user = await JoblyApi.editUser({
-          username,
-          password,
-          firstName,
-          lastName,
-          email,
-        });
-        setCurrUser(user);
-      }
-    } catch (err) {
-      console.error("Error from login", err);
-      throw new Error([err]);
+    let token = await JoblyApi.login({ username, password });
+    if (token) {
+      const user = await JoblyApi.editUser({
+        username,
+        password,
+        firstName,
+        lastName,
+        email,
+      });
+      setCurrUser(user);
     }
   }
 
@@ -89,21 +85,22 @@ function App() {
     localStorage.removeItem("token");
   }
 
-  //have a state to make sure effect finishes running before everything renders
   return (
-    <div className="App">
-      <BrowserRouter>
-        <UserContext.Provider value={{ currUser }}>
-          <Nav logOut={logOut} />
-          <Routes
-            signUpUser={signUpUser}
-            loginUser={loginUser}
-            currUser={currUser}
-            editUser={editUser}
-          />
-        </UserContext.Provider>
-      </BrowserRouter>
-    </div>
+    (isLoading &&
+      <div className="App">
+        <BrowserRouter>
+          <UserContext.Provider value={{ currUser }}>
+            <Nav logOut={logOut} />
+            <Routes
+              signUpUser={signUpUser}
+              loginUser={loginUser}
+              currUser={currUser}
+              editUser={editUser}
+            />
+          </UserContext.Provider>
+        </BrowserRouter>
+      </div>
+    )
   );
 }
 

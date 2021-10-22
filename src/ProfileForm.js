@@ -1,13 +1,12 @@
 import React, { useContext, useState } from "react";
 import Errors from "./Errors";
-import JoblyApi from "./JoblyApi";
 import UserContext from "./UserContext";
 import "./ProfileForm.css";
 
 /** Renders edit profile form
  *
  * props: updateUser fn
- * state: formData
+ * state: formData, isSuccessful, errors
  *
  * Routes -> ProfileForm
  *
@@ -20,7 +19,8 @@ function ProfileForm({ editUser }) {
 
   const [formData, setFormData] = useState(initialState);
   const [isSuccessful, setIsSuccessful] = useState(false);
-  const [error, setError] = useState(null);
+  const [errors, setErrors] = useState(null);
+
   console.log("ProfileForm", { formData });
 
   function handleChange(evt) {
@@ -32,23 +32,19 @@ function ProfileForm({ editUser }) {
     evt.preventDefault();
 
     try {
-      const { username, password } = formData;
-      //TODO: GET THIS OUTTA HERE!!
-      // await JoblyApi.login({ username, password });
       await editUser(formData);
       setIsSuccessful(true);
       setFormData({ ...formData, password: "" });
-      setError(null);
+      setErrors(null);
     } catch (err) {
       console.log("error", { err });
-      setError(err);
-      // setIsSuccessful(false);
+      setErrors(err);
     }
   }
 
   return (
     <div className="ProfileForm">
-      {error && <Errors errors={error} />}
+      {errors && <Errors errors={errors} />}
       {isSuccessful && <h1>Updated profile successfully</h1>}
       <form className="ProfileForm-Form" onSubmit={handleSubmit}>
         <div>
