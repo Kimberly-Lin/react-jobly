@@ -1,7 +1,8 @@
-.Homepage{
-  height: 100vh;
+.Homepage {
+  height: 4rem;
+  background-color: snow;
 }
 
-.Homepage h1{
-  background-color: snow;
+h1 {
+  padding-top: 10px;
 }

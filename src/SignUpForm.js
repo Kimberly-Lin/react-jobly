@@ -1,12 +1,13 @@
 import React, { useState, useContext } from "react";
 import { Redirect } from "react-router-dom";
 import UserContext from "./UserContext";
-import "./SignupForm.css"
+import Errors from "./Errors";
+import "./SignupForm.css";
 
 /** Renders signUpForm
  *
  * props: signUpUser fn
- * state: formData
+ * state: formData, error
  *
  * Routes -> SignUpForm
  *
@@ -23,6 +24,7 @@ const INITIAL_STATE = {
 function SignUpForm({ signUpUser }) {
   const { currUser } = useContext(UserContext);
   const [formData, setFormData] = useState(INITIAL_STATE);
+  const [error, setError] = useState(null);
   console.log("SignUpForm", { formData });
 
   function handleChange(evt) {
@@ -30,9 +32,13 @@ function SignUpForm({ signUpUser }) {
     setFormData((formData) => ({ ...formData, [name]: value.trim() }));
   }
 
-  function handleSubmit(evt) {
+  async function handleSubmit(evt) {
     evt.preventDefault();
-    signUpUser(formData);
+    try {
+      await signUpUser(formData);
+    } catch (err) {
+      setError(err);
+    }
   }
 
   if (currUser) {
@@ -41,6 +47,7 @@ function SignUpForm({ signUpUser }) {
 
   return (
     <div className="SignUpForm">
+      {error && <Errors errors={error} />}
       <form className="SignUpForm-Form" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="username">Username</label>

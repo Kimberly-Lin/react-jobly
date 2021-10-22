@@ -1,22 +1,25 @@
 import React, { useState, useContext } from "react";
 import { Redirect } from "react-router-dom";
 import UserContext from "./UserContext";
-import "./LoginForm.css"
+import Errors from "./Errors";
+import "./LoginForm.css";
 
 /** Renders Login form
  *
  * props: loginUser
- * state: formData
+ * state: formData, error
  *
  * Routes -> LoginForm
  *
  */
+
 const INITIAL_STATE = { username: "", password: "" };
 
 function LoginForm({ loginUser }) {
   const { currUser } = useContext(UserContext);
   const [formData, setFormData] = useState(INITIAL_STATE);
-  console.log("LoginForm", { formData });
+  const [error, setError] = useState(null);
+  console.log("LoginForm", { formData, error });
 
   function handleChange(evt) {
     const { name, value } = evt.target;
@@ -25,7 +28,12 @@ function LoginForm({ loginUser }) {
 
   async function handleSubmit(evt) {
     evt.preventDefault();
-    await loginUser(formData);
+    try {
+      await loginUser(formData);
+    } catch (err) {
+      console.log(err, "Catch error of Login Form");
+      setError(err);
+    }
   }
 
   if (currUser) {
@@ -34,6 +42,7 @@ function LoginForm({ loginUser }) {
 
   return (
     <div className="LoginForm">
+      {error && <Errors errors={error} />}
       <form className="LoginForm-Form" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="username">Username</label>

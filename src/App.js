@@ -15,23 +15,15 @@ import jwt from "jsonwebtoken";
  *
  * Index -> App -> {Routes, Nav}
  */
+
 function App() {
   const [currUser, setCurrUser] = useState(null);
-  const [token, setToken] = useState(null);
-  //can set default token to localstorage
+  const [token, setToken] = useState(localStorage.getItem("token"));
 
   console.log("App", { currUser, token });
 
-  // Use effect to getCurrUsername
-  // if there is a token
-  // reassign Joblytoke to token
-  // decode with jwt, to get username from token
-  // destructure to get username
-  // make a variable to make a get request from api
-
   useEffect(
     function getCurrUser() {
-      //TODO: settoken in localstorage
       async function fetchCurrUser() {
         if (token) {
           JoblyApi.token = token;
@@ -40,43 +32,31 @@ function App() {
           const user = await JoblyApi.getUser({ username });
           console.log({ user }, "User info from fetchCurrUser");
           setCurrUser(user);
+          localStorage.setItem("token", token);
         }
       }
       fetchCurrUser();
     },
     [token]
-    //QUESTION: How to use effect to change state if we don't have token as a state?
   );
 
-  //TODO: can remove try catch and catch the error in the form
   async function signUpUser(formData) {
-    try {
-      let token = await JoblyApi.signUp(formData);
-      console.log("token from signUpUser has passed", { token });
-      setToken(token);
-      //TODO:add token to localstorage
-    } catch (err) {
-      return <Errors errors={err} />;
-    }
+    let token = await JoblyApi.signUp(formData);
+    console.log("token from signUpUser has passed", { token });
+    setToken(token);
   }
 
   async function loginUser(formData) {
-    try {
-      let token = await JoblyApi.login(formData);
-      console.log("token from loginUser has passed", { token });
-      setToken(token);
-      //TODO:add token to localstorage
-    } catch (err) {
-      console.log("Login caught error", { err });
-      return <Errors errors={err} />;
-    }
+    let token = await JoblyApi.login(formData);
+    console.log("token from loginUser has passed", { token });
+    setToken(token);
   }
 
   function logOut() {
     console.log("The logout was clicked");
     setCurrUser(null);
     setToken(null);
-    //TODO: remove token from localstorage
+    localStorage.removeItem("token");
   }
 
   return (
@@ -84,7 +64,11 @@ function App() {
       <BrowserRouter>
         <UserContext.Provider value={{ currUser }}>
           <Nav logOut={logOut} />
-          <Routes signUpUser={signUpUser} loginUser={loginUser} currUser={currUser} />
+          <Routes
+            signUpUser={signUpUser}
+            loginUser={loginUser}
+            currUser={currUser}
+          />
         </UserContext.Provider>
       </BrowserRouter>
     </div>
