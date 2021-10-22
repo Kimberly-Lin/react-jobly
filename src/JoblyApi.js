@@ -48,8 +48,6 @@ class JoblyApi {
     }
   }
 
-  // obviously, you'll add a lot here ...
-
   /** Get list of companies
    *
    * returns [{company}, {company}, {company}]
@@ -62,7 +60,6 @@ class JoblyApi {
     return res.companies;
   }
 
-  //Document more clearly of what is BEING DOCUMENTED!!!
   /** Get list of jobs
    *
    * returns [{job}, {job}, {job}]
@@ -73,12 +70,12 @@ class JoblyApi {
     return res.jobs;
   }
 
-  /** Function get job by id */
+  /** Get details of a job by id */
   static async getJobById(id) {
     const res = await this.request(`jobs/${id}`);
     return res.job;
   }
-
+  /** Registers a user. Returns user token */
   static async signUp({ username, password, firstName, lastName, email }) {
     const res = await this.request(
       "auth/register",
@@ -87,7 +84,7 @@ class JoblyApi {
     );
     return res.token;
   }
-
+  /** Function logs in a user. Returns user token */
   static async login({ username, password }) {
     const res = await this.request(
       "auth/token",
@@ -96,16 +93,17 @@ class JoblyApi {
     );
     return res.token;
   }
-
-  static async getUser({ username }) {
+  /** Get user info by username */
+  static async getUser(username) {
     const res = await this.request(`users/${username}`);
     console.log(res.user, "has been passed through to API");
     return res.user;
   }
-
+  /** Edit user */
+  //This is probably where we'd make sure that the username/password matches
   static async editUser({ username, ...data }) {
-    const res = await this.request(`user/${username}`, data, "patch");
-    return res;
+    const res = await this.request(`users/${username}`, data, "patch");
+    return res.user;
   }
 }
 

@@ -16,12 +16,19 @@ import ProfileForm from "./ProfileForm"
  * App -> Routes ->{Homepage, CompanyList, CompanyDetail, SignUpForm, LoginForm, ProfileForm}
  */
 
-function Routes({ signUpUser, loginUser, currUser }) {
+function Routes({ signUpUser, loginUser, currUser, editUser }) {
   return (
     <Switch>
       <Route exact path="/">
         <Homepage />
       </Route>
+      <Route exact path="/signup">
+        <SignUpForm signUpUser={signUpUser} />
+      </Route>
+      <Route exact path="/login">
+        <LoginForm loginUser={loginUser} />
+      </Route>
+
       {currUser &&
         <Route exact path="/companies">
           <CompanyList />
@@ -36,15 +43,9 @@ function Routes({ signUpUser, loginUser, currUser }) {
           <JobList />
         </Route>
       }
-      <Route exact path="/signup">
-        <SignUpForm signUpUser={signUpUser} />
-      </Route>
-      <Route exact path="/login">
-        <LoginForm loginUser={loginUser} />
-      </Route>
       {currUser &&
         <Route exact path="/profile">
-          <ProfileForm />
+          <ProfileForm editUser={editUser} />
         </Route>
       }
       <Redirect to="/" />

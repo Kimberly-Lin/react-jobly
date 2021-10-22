@@ -29,9 +29,11 @@ nav a:hover {
   font-size: large;
   flex-grow: 1;
 }
-.Nav-Signup, .Nav-Login, .Nav-Profile, .Nav-Companies, .Nav-Jobs{
+.Nav-Signup, .Nav-Login, .Nav-Profile, .Nav-Companies, .Nav-Jobs, .Nav-Logout{
   display:flex;
   font-size: large;
+  margin-right: 30px;
+  text-align: center;
 }
 
 .NavContainer{ 

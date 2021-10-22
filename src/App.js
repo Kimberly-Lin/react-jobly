@@ -28,10 +28,9 @@ function App() {
           JoblyApi.token = token;
           const { username } = jwt.decode(token);
           console.log(username, "This is current username");
-          const user = await JoblyApi.getUser({ username });
+          const user = await JoblyApi.getUser(username);
           console.log({ user }, "User info from fetchCurrUser");
           setCurrUser(user);
-          localStorage.setItem("token", token);
         }
       }
       fetchCurrUser();
@@ -39,16 +38,31 @@ function App() {
     [token]
   );
 
+  useEffect(
+    function currUpdate() {
+      console.log("currUser changed", { currUser })
+    }, [currUser]
+  )
+
   async function signUpUser(formData) {
-    let token = await JoblyApi.signUp(formData);
+    const token = await JoblyApi.signUp(formData);
     console.log("token from signUpUser has passed", { token });
+    localStorage.setItem("token", token);
     setToken(token);
   }
 
   async function loginUser(formData) {
-    let token = await JoblyApi.login(formData);
+    const token = await JoblyApi.login(formData);
     console.log("token from loginUser has passed", { token });
+    localStorage.setItem("token", token);
     setToken(token);
+  }
+
+  async function editUser(formData) {
+    console.log("edit user ran", { formData });
+    const { username, password, firstName, lastName, email } = formData;
+    const user = await JoblyApi.editUser({ username, password, firstName, lastName, email });
+    setCurrUser(user);
   }
 
   function logOut() {
@@ -58,6 +72,7 @@ function App() {
     localStorage.removeItem("token");
   }
 
+  //have a state to make sure effect finishes running before everything renders
   return (
     <div className="App">
       <BrowserRouter>
@@ -67,6 +82,7 @@ function App() {
             signUpUser={signUpUser}
             loginUser={loginUser}
             currUser={currUser}
+            editUser={editUser}
           />
         </UserContext.Provider>
       </BrowserRouter>
