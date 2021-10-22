@@ -63,22 +63,17 @@ function App() {
   async function editUser(formData) {
     console.log("edit user ran", { formData });
     const { username, password, firstName, lastName, email } = formData;
-    // await JoblyApi.login({ username, password });
-    try {
-      let token = await JoblyApi.login({ username, password });
-      if (token) {
-        const user = await JoblyApi.editUser({
-          username,
-          password,
-          firstName,
-          lastName,
-          email,
-        });
-        setCurrUser(user);
-      }
-    } catch (err) {
-      console.error("Error from login", err);
-      throw new Error([err]);
+
+    let token = await JoblyApi.login({ username, password });
+    if (token) {
+      const user = await JoblyApi.editUser({
+        username,
+        password,
+        firstName,
+        lastName,
+        email,
+      });
+      setCurrUser(user);
     }
   }
 
