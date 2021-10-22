@@ -5,7 +5,6 @@ import Nav from "./Nav";
 import { BrowserRouter } from "react-router-dom";
 import UserContext from "./UserContext";
 import JoblyApi from "./JoblyApi";
-import Errors from "./Errors";
 import jwt from "jsonwebtoken";
 
 /** Renders jobly app
