@@ -10,7 +10,7 @@ import jwt from "jsonwebtoken";
 /** Renders jobly app
  *
  * prop: none
- * state: currUser, token, isLoading
+ * state: currUser, token, needsReloading
  *
  * Index -> App -> {Routes, Nav}
  */
@@ -18,33 +18,28 @@ import jwt from "jsonwebtoken";
 function App() {
   const [currUser, setCurrUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("token"));
-  const [isLoading, setIsLoading] = useState(false);
+  const [needsReloading, setNeedsReloading] = useState(false);
 
-  console.log("App", { currUser, token });
+  console.log("App", { currUser, token, needsReloading });
 
   useEffect(
     function getCurrUser() {
       async function fetchCurrUser() {
-        if (token) {
-          JoblyApi.token = token;
-          const { username } = jwt.decode(token);
-          console.log(username, "This is current username");
-          const user = await JoblyApi.getUser(username);
-          console.log({ user }, "User info from fetchCurrUser");
-          setCurrUser(user);
-          setIsLoading(true);
-        }
+        JoblyApi.token = token;
+        const { username } = jwt.decode(token);
+        console.log(username, "This is current username");
+        const user = await JoblyApi.getUser(username);
+        console.log({ user }, "User info from fetchCurrUser");
+        setCurrUser(user);
+        setNeedsReloading(true);
       }
-      fetchCurrUser();
+      if (token) {
+        fetchCurrUser();
+      } else {
+        setNeedsReloading(true);
+      }
     },
     [token]
-  );
-
-  useEffect(
-    function currUpdate() {
-      console.log("currUser changed", { currUser });
-    },
-    [currUser]
   );
 
   async function signUpUser(formData) {
@@ -87,7 +82,7 @@ function App() {
   }
 
   return (
-    (isLoading &&
+    (needsReloading &&
       <div className="App">
         <BrowserRouter>
           <UserContext.Provider value={{ currUser }}>

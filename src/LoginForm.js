@@ -18,8 +18,8 @@ const INITIAL_STATE = { username: "", password: "" };
 function LoginForm({ loginUser }) {
   const { currUser } = useContext(UserContext);
   const [formData, setFormData] = useState(INITIAL_STATE);
-  const [error, setError] = useState(null);
-  console.log("LoginForm", { formData, error });
+  const [errors, setErrors] = useState(null);
+  console.log("LoginForm", { formData, errors });
 
   function handleChange(evt) {
     const { name, value } = evt.target;
@@ -32,7 +32,7 @@ function LoginForm({ loginUser }) {
       await loginUser(formData);
     } catch (err) {
       console.log(err, "Catch error of Login Form");
-      setError(err);
+      setErrors(err);
     }
   }
 
@@ -42,7 +42,7 @@ function LoginForm({ loginUser }) {
 
   return (
     <div className="LoginForm">
-      {error && <Errors errors={error} />}
+      {errors && <Errors errors={errors} />}
       <form className="LoginForm-Form" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="username">Username</label>
