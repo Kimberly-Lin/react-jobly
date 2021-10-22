@@ -100,16 +100,7 @@ class JoblyApi {
     return res.user;
   }
   /** Edit user */
-  //This is probably where we'd make sure that the username/password matches
   static async editUser({ username, ...data }) {
-    // try {
-    //   let res = await JoblyApi.login({ username, password: data.password });
-    //   console.log(res, "what has been passed through edit user in login");
-    // } catch (err) {
-    //   console.warn(err, "Error message of invalid login");
-    //   throw Error(err.message);
-    // }
-
     const res = await this.request(`users/${username}`, data, "patch");
     return res.user;
   }
