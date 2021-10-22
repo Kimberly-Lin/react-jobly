@@ -2,28 +2,26 @@ import React, { useContext, useState } from "react";
 import Errors from "./Errors";
 import JoblyApi from "./JoblyApi";
 import UserContext from "./UserContext";
-import "./ProfileForm.css"
+import "./ProfileForm.css";
 
 /** Renders edit profile form
- * 
+ *
  * props: updateUser fn
  * state: formData
- * 
+ *
  * Routes -> ProfileForm
- * 
+ *
  */
 
 function ProfileForm({ editUser }) {
   const { currUser } = useContext(UserContext);
 
-  const initialState = { ...currUser, "password": "" };
+  const initialState = { ...currUser, password: "" };
 
   const [formData, setFormData] = useState(initialState);
   const [isSuccessful, setIsSuccessful] = useState(false);
   const [error, setError] = useState(null);
   console.log("ProfileForm", { formData });
-
-  //TODO: Error needs to clear 
 
   function handleChange(evt) {
     const { name, value } = evt.target;
@@ -34,16 +32,17 @@ function ProfileForm({ editUser }) {
     evt.preventDefault();
 
     try {
-      const { username, password } = formData
+      const { username, password } = formData;
       //TODO: GET THIS OUTTA HERE!!
-      await JoblyApi.login({ username, password });
+      // await JoblyApi.login({ username, password });
       await editUser(formData);
       setIsSuccessful(true);
-      setFormData({ ...formData, "password": "" });
+      setFormData({ ...formData, password: "" });
+      setError(null);
     } catch (err) {
       console.log("error", { err });
       setError(err);
-      setIsSuccessful(false);
+      // setIsSuccessful(false);
     }
   }
 

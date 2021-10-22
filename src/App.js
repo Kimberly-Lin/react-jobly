@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import UserContext from "./UserContext";
 import JoblyApi from "./JoblyApi";
 import jwt from "jsonwebtoken";
+import Errors from "./Errors";
 
 /** Renders jobly app
  *
@@ -40,9 +41,10 @@ function App() {
 
   useEffect(
     function currUpdate() {
-      console.log("currUser changed", { currUser })
-    }, [currUser]
-  )
+      console.log("currUser changed", { currUser });
+    },
+    [currUser]
+  );
 
   async function signUpUser(formData) {
     const token = await JoblyApi.signUp(formData);
@@ -61,8 +63,23 @@ function App() {
   async function editUser(formData) {
     console.log("edit user ran", { formData });
     const { username, password, firstName, lastName, email } = formData;
-    const user = await JoblyApi.editUser({ username, password, firstName, lastName, email });
-    setCurrUser(user);
+    // await JoblyApi.login({ username, password });
+    try {
+      let token = await JoblyApi.login({ username, password });
+      if (token) {
+        const user = await JoblyApi.editUser({
+          username,
+          password,
+          firstName,
+          lastName,
+          email,
+        });
+        setCurrUser(user);
+      }
+    } catch (err) {
+      console.error("Error from login", err);
+      throw new Error([err]);
+    }
   }
 
   function logOut() {
