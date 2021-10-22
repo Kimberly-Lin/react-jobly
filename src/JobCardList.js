@@ -1,5 +1,6 @@
 import React from "react";
 import JobCard from "./JobCard";
+import "./JobCardList.css"
 
 /** Renders a list of job cards
  *
@@ -12,7 +13,7 @@ import JobCard from "./JobCard";
 function JobCardList({ jobs }) {
   console.log("JobCardList", { jobs });
   return (
-    <div>
+    <div className="JobCardList">
       {jobs.map((job) => (
         <JobCard
           key={job.id}

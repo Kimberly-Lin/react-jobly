@@ -46,7 +46,7 @@ function JobList() {
   );
 
   return (
-    <div>
+    <div className="JobList">
       <SearchForm handleSearch={handleSearch} />
       {isLoading
         ? <Loading />
