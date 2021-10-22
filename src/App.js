@@ -65,6 +65,7 @@ function App() {
     console.log("edit user ran", { formData });
     const { username, password, firstName, lastName, email } = formData;
     // await JoblyApi.login({ username, password });
+
     let token = await JoblyApi.login({ username, password });
     if (token) {
       const user = await JoblyApi.editUser({
